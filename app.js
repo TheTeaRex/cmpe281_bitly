@@ -1,29 +1,74 @@
 var fs = require('fs');
 var express = require('express');
 var Client = require('node-rest-client').Client;
+var request = require('request');
+var http = require('http');
 
 var app = express();
 app.use(express.bodyParser());
 app.use("/images", express.static(__dirname + '/images'));
 
+var endpoint = "http://52.11.127.220"
+
 var page = function( req, res, state ) {
     body = fs.readFileSync('./urlShortener.html');
     res.setHeader('Content-Type', 'text/html');
     res.writeHead(200);
-
+    
     msg = "This is the current state of this app: " + state + "<br>";
     if (state == "has-url"){
-        msg = msg + "The URL you entered is " + req.body.longurl;
+        longurl = req.body.longurl;
+        shorturl = getShortUrl(longurl);
+        msg = msg + "Your Long URL: " + longurl + "<br>";
+        msg = msg + "Your Short URL: " + shorturl + "<br>";
     }
     var html_body = "" + body;
     html_body = html_body.replace("{message}", msg);
     res.end(html_body);
 }
 
+var getShortUrl = function( longurl ) {
+    /*
+    var request = new http.ClientRequest(
+        {
+            hostname : endpoint,
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        }
+    )
+    var body = JSON.stringify(
+        {
+            "longurl" : longurl
+        }
+    )
+    request.end(body);
+    */
+    request({
+        url : endpoint,
+        method : "POST",
+        json: true,
+        body : {
+            "longurl" : longurl
+        }
+    }, function(error, response, body){
+        if(error){
+            console.log(error);
+        } else {
+            console.log(response.statusCode, body);
+            shorturl = body.shorturl;
+        }
+    }
+    )
+}
+
 var handle_post = function (req, res) {
     console.log( "Post: " + "Submitted URL: " +  req.body.longurl + "\n" ) ;
     var longurl = "" + req.body.longurl ;
-    //VALIDATE LONG URL
+    //NEED TO VALIDATE LONG URL
+    //....
+    //....
     if (longurl.trim() == "") {
         page( req, res, "no-url" ) ;
     }
@@ -35,6 +80,7 @@ var handle_post = function (req, res) {
 var handle_get = function (req, res) {
     console.log( "Get: ..." ) ;
     page( req, res, "no-url" ) ;
+    
 }
 
 app.set('port', (process.env.PORT || 5000));
