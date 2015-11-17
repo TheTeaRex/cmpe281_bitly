@@ -11,40 +11,29 @@ app.use("/images", express.static(__dirname + '/images'));
 var endpoint = "http://52.11.127.220"
 
 var page = function( req, res, state ) {
-    body = fs.readFileSync('./urlShortener.html');
+    var body = fs.readFileSync('./urlShortener.html');
     res.setHeader('Content-Type', 'text/html');
     res.writeHead(200);
     
-    msg = "This is the current state of this app: " + state + "<br>";
+    var msg = "This is the current state of this app: " + state + "<br>";
     if (state == "has-url"){
-        longurl = req.body.longurl;
-        shorturl = getShortUrl(longurl);
+        var longurl = req.body.longurl;
+        var shorturl;
+        getShortUrl(longurl, function(shorturl){
         msg = msg + "Your Long URL: " + longurl + "<br>";
         msg = msg + "Your Short URL: " + shorturl + "<br>";
+        var html_body = "" + body;
+        html_body = html_body.replace("{message}", msg);
+        res.end(html_body);
+        });
+    }else {
+        var html_body = "" + body;
+        html_body = html_body.replace("{message}", msg);
+        res.end(html_body);
     }
-    var html_body = "" + body;
-    html_body = html_body.replace("{message}", msg);
-    res.end(html_body);
 }
 
-var getShortUrl = function( longurl ) {
-    /*
-    var request = new http.ClientRequest(
-        {
-            hostname : endpoint,
-            method : "POST",
-            headers : {
-                "Content-Type" : "application/json"
-            }
-        }
-    )
-    var body = JSON.stringify(
-        {
-            "longurl" : longurl
-        }
-    )
-    request.end(body);
-    */
+var getShortUrl = function( longurl, callback) {
     request({
         url : endpoint,
         method : "POST",
@@ -55,9 +44,10 @@ var getShortUrl = function( longurl ) {
     }, function(error, response, body){
         if(error){
             console.log(error);
+            callback(null);
         } else {
             console.log(response.statusCode, body);
-            shorturl = body.shorturl;
+            callback(body.shorturl);
         }
     }
     )
