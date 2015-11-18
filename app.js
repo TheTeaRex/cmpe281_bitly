@@ -16,7 +16,8 @@ var page = function( req, res, state ) {
     res.setHeader('Content-Type', 'text/html');
     res.writeHead(200);
     
-    var msg = "This is the current state of this app: " + state + "<br>";
+    //var msg = "This is the current state of this app: " + state + "<br>";
+    var msg = "";
     if (state == "has-url"){
         var longurl = req.body.longurl;
         var shorturl;
