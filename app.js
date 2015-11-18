@@ -1,6 +1,5 @@
 var fs = require('fs');
 var express = require('express');
-var Client = require('node-rest-client').Client;
 var request = require('request');
 var http = require('http');
 var S = require('string');
@@ -20,9 +19,6 @@ var page = function( req, res, state ) {
     var msg = "This is the current state of this app: " + state + "<br>";
     if (state == "has-url"){
         var longurl = req.body.longurl;
-        if ( ! (S(longurl).startsWith("http://") || S(longurl).startsWith("https://"))){
-            longurl = "http://" + longurl;
-        }
         var shorturl;
         getShortUrl(longurl, function(shorturl){
         msg = msg + "Your Long URL: " + longurl + "<br>";
@@ -63,9 +59,9 @@ var handle_post = function (req, res) {
     var longurl = "" + req.body.longurl ;
     //NEED TO VALIDATE LONG URL
     if ( ! (S(longurl).startsWith("http://") || S(longurl).startsWith("https://"))){
-        longurl = "http://" + longurl;
+        req.body.longurl = "http://" + longurl;
     }
-    console.log("longurl: "+longurl);
+    console.log("longurl: "+ req.body.longurl);
 
     if (longurl.trim() == "") {
         page( req, res, "no-url" ) ;
