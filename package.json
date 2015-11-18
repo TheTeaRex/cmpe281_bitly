@@ -1,6 +1,6 @@
 {
-  "name": "gumball_v1",
-  "description": "Simple Test Form",
+  "name": "urlshortener",
+  "description": "User Interface for the URL Shortener",
   "version": "1.0.0",
   "scripts": {
     "start": "node app.js"
