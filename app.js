@@ -21,9 +21,10 @@ var page = function( req, res, state ) {
     if (state == "has-url"){
         var longurl = req.body.longurl;
         var shorturl;
-        getShortUrl(longurl, function(shorturl){
+        getShortUrl(longurl, function(shorturl, publicIP){
         msg = msg + "Your Long URL: " + longurl + "<br>";
         msg = msg + "Your Short URL: " + shorturl + "<br>";
+        msg = msg + "Host IP Converting this URL: " + publicIP + "<br>";
         var html_body = "" + body;
         html_body = html_body.replace("{message}", msg);
         res.end(html_body);
@@ -48,8 +49,8 @@ var getShortUrl = function( longurl, callback) {
             console.log(error);
             callback(null);
         } else {
-            console.log(response.statusCode, body);
-            callback(body.shorturl);
+            console.log(JSON.stringify(body));
+            callback(body.shorturl, body.publicIP);
         }
     }
     )
