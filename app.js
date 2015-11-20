@@ -8,7 +8,7 @@ var app = express();
 app.use(express.bodyParser());
 app.use("/images", express.static(__dirname + '/images'));
 
-var endpoint = "https://52.11.127.220"
+var endpoint = "http://52.11.127.220";//"https://cpserver-dev.elasticbeanstalk.com/"
 
 
 var page = function( req, res, state ) {
