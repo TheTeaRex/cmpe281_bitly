@@ -8,7 +8,7 @@ var app = express();
 app.use(express.bodyParser());
 app.use("/images", express.static(__dirname + '/images'));
 
-var endpoint = "http://52.11.127.220"
+var endpoint = "https://52.11.127.220"
 
 
 var page = function( req, res, state ) {
@@ -83,6 +83,9 @@ app.set('port', (process.env.PORT || 5000));
 
 app.post("*", handle_post );
 app.get( "*", handle_get ) ;
+
+//accepting self signed certificate
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
