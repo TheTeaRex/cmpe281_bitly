@@ -8,7 +8,7 @@ var app = express();
 app.use(express.bodyParser());
 app.use("/images", express.static(__dirname + '/images'));
 
-var endpoint = "https://cpServer-dev.elasticbeanstalk.com";
+var endpoint = "https://52.11.127.220";
 
 var page = function( req, res, state ) {
     var body = fs.readFileSync('./urlShortener.html');
