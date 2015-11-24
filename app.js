@@ -1,11 +1,14 @@
 var fs = require('fs');
 var express = require('express');
+var bodyParser = require('body-parser');
 var request = require('request');
 var http = require('http');
 var S = require('string');
 
 var app = express();
-app.use(express.bodyParser());
+//app.use(express.bodyParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use("/images", express.static(__dirname + '/images'));
 
 var endpoint = "http://52.11.127.220";
