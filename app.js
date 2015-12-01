@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use("/images", express.static(__dirname + '/images'));
 
 var endpoint = "http://52.11.127.220";
+var trendendpoint = "https://52.11.127.220";
 
 var page = function( req, res, state ) {
     var body = fs.readFileSync('./urlShortener.html');
@@ -58,6 +59,99 @@ var getShortUrl = function( longurl, callback) {
     )
 }
 
+var pageTrend = function(req, res, state){
+    var body = fs.readFileSync('./trend.html');
+    res.setHeader('Content-Type', 'text/html');
+    res.writeHead(200);
+    
+    var msg = "";
+    if (state == "no-url"){
+        getTopTen(function(result){
+            if (result.length == 0 ){
+                msg = "No Data can be found at the moment."
+            }
+            else {
+                msg += "Here are our top ten short URLs!<br><br>";
+                msg += '<table border ="1">';
+                msg += '<tr><td>Long URL</td><td>Short URL</td><td>Total Visit</td></tr>';
+                for (var i=0; i < result.length; i++) {
+                    //console.log(result[i]);
+                    msg += '<tr>';
+                    msg += '<td>' + result[i].longurl + '</td>';
+                    msg += '<td>' + result[i].shorturl + '</td>';
+                    msg += '<td>' + result[i].totalcount.toString() + '</td>';
+                    msg += '</tr>';
+                }
+                msg += '</table>'
+            }
+            var html_body = "" + body;
+            html_body = html_body.replace("{message}", msg);
+            res.end(html_body);
+        });
+    } else if(state == "has-url"){
+        getShortInfo(req.body.shorturl, function(result){
+            if (result.status == "not found"){
+                msg += "We don't have any data on the Short URL you have provided.<br>";
+                msg += "Please make sure you have visit the Short URL yourself or<br>you have input the correct Short URL";
+            } else {
+                result.users.sort(function(a, b){return b.count - a.count;})
+                msg += "Here is some information about the provided URL:<br>";
+                msg += '<table border ="1">';
+                msg += '<tr><td>User IP</td><td>Total Visit</td></tr>';
+                for (var i=0; i<result.users.length; i++){
+                    msg += '<tr>';
+                    msg += '<td>' + result.users[i].IP + '</td>';
+                    msg += '<td>' + result.users[i].count + '</td>';
+                    msg += '</tr>';
+                }
+                msg += "</table>";
+            }
+            var html_body = "" + body;
+            html_body = html_body.replace("{message}", msg);
+            res.end(html_body);
+        });
+    }
+}
+
+var getTopTen = function(callback) {
+    request({
+        url : trendendpoint,
+        method : "POST",
+        json: true,
+        body : {
+            "action" : "read"
+        }
+    }, function(error, response, body){
+        if(error){
+            console.log(error);
+            callback(null);
+        } else {
+            //console.log(body);
+            callback(body);
+        }
+    });
+}
+
+var getShortInfo = function(shorturl, callback){
+    request({
+        url : trendendpoint,
+        method : "POST",
+        json: true,
+        body : {
+            "action" : "read",
+            "shorturl": shorturl
+        }
+    }, function(error, response, body){
+        if(error){
+            console.log(error);
+            callback(null);
+        } else {
+            //console.log(body);
+            callback(body);
+        }
+    });
+};
+
 var handle_post = function (req, res) {
     console.log( "Post: " + "Submitted URL: " +  req.body.longurl + "\n" ) ;
     var longurl = "" + req.body.longurl ;
@@ -78,13 +172,29 @@ var handle_post = function (req, res) {
 var handle_get = function (req, res) {
     console.log( "Get: ..." ) ;
     page( req, res, "no-url" ) ;
-    
+}
+
+var handle_getTrend = function (req, res) {
+    console.log( "Get Trend: ..." ) ;
+    pageTrend(req, res, "no-url");
+}
+
+var handle_postTrend = function (req, res) {
+    console.log( "Get Trend: ..." ) ;
+    var shorturl = "" + req.body.shorturl;
+    if (shorturl.trim() != ""){
+        pageTrend(req, res, "has-url");
+    }
+    else
+        pageTrend(req, res, "no-url");
 }
 
 app.set('port', (process.env.PORT || 80));
 
-app.post("*", handle_post );
-app.get( "*", handle_get ) ;
+app.post("/", handle_post );
+app.get( "/", handle_get ) ;
+app.get("/trend", handle_getTrend);
+app.post("/trend", handle_postTrend);
 
 //accepting self signed certificate
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";

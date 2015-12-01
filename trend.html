@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Trend Checker</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
+</head>
+<div id="container">
+    <body>
+    <div id="header">
+        <h1 align="center">Check the Trend of Your URL</h1>
+    </div>
+    <div id="body">
+        <!-- FORM SECTION -->
+        <form name="urlform" method="post" action="">
+        
+        <input type="hidden" name="state" id="state" value="{state}" />
+        
+        <!--<p align="center"><img src="images/urlshortenerlogo.png"></p>-->
+        <p align="center">
+            Please enter your short URL below:<br>
+            <input type="text" name="shorturl">
+        <input type="submit" name="submiturl" id="submiturl" value="Submit">
+        </p>
+        </form>
+        <p align="center">{message}</p>
+        <!-- END FORM SECTION -->
+    </div>
+</div>
+</body>
