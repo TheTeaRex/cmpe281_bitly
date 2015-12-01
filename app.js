@@ -196,8 +196,8 @@ app.set('port', (process.env.PORT || 80));
 
 app.post("/", handle_post );
 app.get( "/", handle_get ) ;
-app.get("/trends", handle_getTrend);
-app.post("/trends", handle_postTrend);
+app.get("/trend", handle_getTrend);
+app.post("/trend", handle_postTrend);
 
 //accepting self signed certificate
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
