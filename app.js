@@ -72,18 +72,16 @@ var pageTrend = function(req, res, state){
                 msg = "No Data can be found at the moment."
             }
             else {
-                msg += "Here are our top ten short URLs!<br><br>";
-                msg += '<table border ="1">';
-                msg += '<tr><td>Long URL</td><td>Short URL</td><td>Total Visit</td></tr>';
+                msg += '<p align="center">Here are our top ten short URLs!</p>';
+                msg += '<tr><th>Long URL</th><th>Short URL</th><th>Total Visit</th></tr>';
                 for (var i=0; i < result.length; i++) {
                     //console.log(result[i]);
                     msg += '<tr>';
-                    msg += '<td>' + result[i].longurl + '</td>';
-                    msg += '<td>' + result[i].shorturl + '</td>';
-                    msg += '<td>' + result[i].totalcount.toString() + '</td>';
+                    msg += '<td align="center">' + result[i].longurl + '</td>';
+                    msg += '<td align="center">' + result[i].shorturl + '</td>';
+                    msg += '<td align="center">' + result[i].totalcount.toString() + '</td>';
                     msg += '</tr>';
                 }
-                msg += '</table>'
             }
             var html_body = "" + body;
             html_body = html_body.replace("{message}", msg);
@@ -95,22 +93,21 @@ var pageTrend = function(req, res, state){
         shorturl = S(shorturl).chompLeft(shortDomain).s;
         getShortInfo(shorturl, function(result){
             console.log("URL: " +shorturl);
-            msg += "Short URL: " + req.body.shorturl + "<br><br>";
+            msg += '<p align=center>Short URL: ' + req.body.shorturl + "</p>";
             if (result.status == "not found"){
+                msg += '<p align="center"';
                 msg += "We don't have any data on the Short URL you have provided.<br>";
-                msg += "Please make sure you have visit the Short URL yourself or<br>you have input the correct Short URL";
+                msg += "Please make sure you have visit the Short URL yourself or<br>you have input the correct Short URL</p>";
             } else {
                 result.users.sort(function(a, b){return b.count - a.count;})
-                msg += "Here is some information about the provided URL:<br>";
-                msg += '<table border ="1">';
-                msg += '<tr><td>User IP</td><td>Total Visit</td></tr>';
+                msg += '<p align="center">Here is some information about the provided URL:</p>';
+                msg += '<tr><th>User IP</th><th>Total Visit</th></tr>';
                 for (var i=0; i<result.users.length; i++){
                     msg += '<tr>';
-                    msg += '<td>' + result.users[i].IP + '</td>';
-                    msg += '<td>' + result.users[i].count + '</td>';
+                    msg += '<td align="center">' + result.users[i].IP + '</td>';
+                    msg += '<td align="center">' + result.users[i].count + '</td>';
                     msg += '</tr>';
                 }
-                msg += "</table>";
             }
             var html_body = "" + body;
             html_body = html_body.replace("{message}", msg);

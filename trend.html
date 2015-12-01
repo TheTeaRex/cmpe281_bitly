@@ -1,14 +1,14 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Trend Checker</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
 </head>
-<div id="container">
-    <body>
-    <div id="header">
+<body>
+<div>
+    <div>
         <h1 align="center">Check the Trend of Your URL</h1>
     </div>
-    <div id="body">
+    <div>
         <!-- FORM SECTION -->
         <form name="urlform" method="post" action="">
         
@@ -21,8 +21,9 @@
         <input type="submit" name="submiturl" id="submiturl" value="Submit">
         </p>
         </form>
-        <p align="center">{message}</p>
         <!-- END FORM SECTION -->
+        <table border="1" align="center" cellpadding="5">{message}</table>
     </div>
 </div>
 </body>
+</html>
