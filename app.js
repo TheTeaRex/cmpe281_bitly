@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use("/images", express.static(__dirname + '/images'));
 
 var endpoint = "http://52.11.127.220";
-var trendendpoint = "https://52.11.127.220";
+var trendendpoint = "https://52.33.83.106";
 var shortDomain = "https://team6.com/";
 
 var page = function( req, res, state ) {
@@ -69,7 +69,7 @@ var pageTrend = function(req, res, state){
     if (state == "no-url"){
         getTopTen(function(result){
             if (result.length == 0 ){
-                msg = "No Data can be found at the moment."
+                msg = '<p align="center">No Data can be found at the moment.</p>';
             }
             else {
                 msg += '<p align="center">Here are our top ten short URLs!</p>';
