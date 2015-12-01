@@ -13,6 +13,7 @@ app.use("/images", express.static(__dirname + '/images'));
 
 var endpoint = "http://52.11.127.220";
 var trendendpoint = "https://52.11.127.220";
+var shortDomain = "https://team6.com/";
 
 var page = function( req, res, state ) {
     var body = fs.readFileSync('./urlShortener.html');
@@ -89,7 +90,12 @@ var pageTrend = function(req, res, state){
             res.end(html_body);
         });
     } else if(state == "has-url"){
-        getShortInfo(req.body.shorturl, function(result){
+        var shorturl = req.body.shorturl;
+        // getting rid of the domain
+        shorturl = S(shorturl).chompLeft(shortDomain).s;
+        getShortInfo(shorturl, function(result){
+            console.log("URL: " +shorturl);
+            msg += "Short URL: " + req.body.shorturl + "<br><br>";
             if (result.status == "not found"){
                 msg += "We don't have any data on the Short URL you have provided.<br>";
                 msg += "Please make sure you have visit the Short URL yourself or<br>you have input the correct Short URL";
@@ -193,8 +199,8 @@ app.set('port', (process.env.PORT || 80));
 
 app.post("/", handle_post );
 app.get( "/", handle_get ) ;
-app.get("/trend", handle_getTrend);
-app.post("/trend", handle_postTrend);
+app.get("/trends", handle_getTrend);
+app.post("/trends", handle_postTrend);
 
 //accepting self signed certificate
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
