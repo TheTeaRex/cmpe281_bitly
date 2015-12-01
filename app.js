@@ -78,7 +78,7 @@ var pageTrend = function(req, res, state){
                     //console.log(result[i]);
                     msg += '<tr>';
                     msg += '<td align="center">' + result[i].longurl + '</td>';
-                    msg += '<td align="center">' + result[i].shorturl + '</td>';
+                    msg += '<td align="center">' + shortDomain+result[i].shorturl + '</td>';
                     msg += '<td align="center">' + result[i].totalcount.toString() + '</td>';
                     msg += '</tr>';
                 }
