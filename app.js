@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use("/images", express.static(__dirname + '/images'));
 
 var endpoint = "http://52.11.127.220";
-var trendendpoint = "https://52.33.83.106";
+var trendendpoint = "https://52.11.102.172";
 var shortDomain = "http://54.215.225.12/";
 
 var page = function( req, res, state ) {
