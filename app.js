@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 app.use("/images", express.static(__dirname + '/images'));
 
 var endpoint = "http://52.11.127.220";
-var trendendpoint = "https://52.11.127.220";
-var shortDomain = "https://team6.com/";
+var trendendpoint = "https://52.33.83.106";
+var shortDomain = "http://54.215.225.12/";
 
 var page = function( req, res, state ) {
     var body = fs.readFileSync('./urlShortener.html');
