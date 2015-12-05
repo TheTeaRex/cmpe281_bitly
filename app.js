@@ -96,11 +96,11 @@ var pageTrend = function(req, res, state){
             msg += '<p align=center>Short URL: ' + req.body.shorturl + "</p>";
             if (result.status == "not found"){
                 msg += '<p align="center"';
-                msg += "We don't have any data on the Short URL you have provided.<br>";
-                msg += "Please make sure you have visit the Short URL yourself or<br>you have input the correct Short URL</p>";
+                msg += "<h3>We don't have any data on the Short URL you have provided.<br>";
+                msg += "Please make sure you have visit the Short URL yourself or<br>you have input the correct Short URL</p></h3>";
             } else {
                 result.users.sort(function(a, b){return b.count - a.count;})
-                msg += '<p align="center">Here is some information about the provided URL:</p>';
+                msg += '<p align="center"><h3>Here is some information about the provided URL:</h3></p>';
                 msg += '<tr><th class="text-center"><h4>User IP</h4></th><th class="text-center"><h4>Total Visit</h4></th></tr>';
                 for (var i=0; i<result.users.length; i++){
                     msg += '<tr>';
