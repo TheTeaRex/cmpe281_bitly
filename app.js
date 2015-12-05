@@ -13,7 +13,7 @@ app.use("/images", express.static(__dirname + '/images'));
 
 var endpoint = "https://team6cp.elasticbeanstalk.com";
 var trendendpoint = "https://52.11.102.172";
-var shortDomain = "http://54.193.121.101/";
+var shortDomain = "http://team6lr.elasticbeanstalk.com/";
 
 var page = function( req, res, state ) {
     var body = fs.readFileSync('./urlShortener.html');
