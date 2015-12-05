@@ -101,7 +101,7 @@ var pageTrend = function(req, res, state){
             } else {
                 result.users.sort(function(a, b){return b.count - a.count;})
                 msg += '<p align="center">Here is some information about the provided URL:</p>';
-                msg += '<tr><th>User IP</th><th>Total Visit</th></tr>';
+                msg += '<tr><th class="text-center"><h4>User IP</h4></th><th class="text-center"><h4>Total Visit</h4></th></tr>';
                 for (var i=0; i<result.users.length; i++){
                     msg += '<tr>';
                     msg += '<td align="center">' + result.users[i].IP + '</td>';
