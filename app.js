@@ -73,7 +73,7 @@ var pageTrend = function(req, res, state){
             }
             else {
                 msg += '<h3><p align="center">Here are our top ten short URLs!</p></h3>';
-                msg += '<tr><th>Long URL</th><th>Short URL</th><th>Total Visit</th></tr>';
+                msg += '<tr><th class="text-center"><h4>Long URL</h4></th><th class="text-center"><h4>Short URL</h4></th><th class="text-center"><h4>Total Visit</h4></th></tr>';
                 for (var i=0; i < result.length; i++) {
                     //console.log(result[i]);
                     msg += '<tr>';
