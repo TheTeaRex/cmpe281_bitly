@@ -3,7 +3,7 @@
 <font face="TW Cen MT">
 <head>
     <title>Welcome to Team 6 URL Shortener</title>
-    <link rel="stylesheet" href="forms.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 </head>
 <body>
@@ -18,18 +18,24 @@
         <input type="hidden" name="state" id="state" value="{state}" />
         
         <p align="center"><img src="images/urlshortenerlogo.png"></p>
-        <p align="center">
-            Please enter your long URL below:<br>
-            <input type="text" name="longurl" size="50">
-        <input type="submit" name="submiturl" id="submiturl" value="Shorten">
-        </p>
+        <div class="col-xs-4"></div>
+
+        <div class="col-xs-4">    
+        <input type="text" name="longurl" class="form-control input-lg" placeholder="Paste in your long URL to shorten it">
+     </div>
+        <button type="submit" name="submiturl" id="submiturl" class="btn btn-primary btn-lg">Shorten</button>
+        
+     <br><br>
         </form>
-        <p align="center">{message}</p>
+        <h4><p align="center">{message}</p></h4>
         <!-- END FORM SECTION -->
+        
+     
+        
     </div>
 </div>
 <p align="center">
-<a href="./trend">Check the Trend</a></p>
+<a href="./trend"><h3 align="center">Click Here for the Trend</a></p></h3>
 </body>
 </font>
 </html>

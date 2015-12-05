@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
+    <font face="TW Cen MT">
 <head>
     <title>Trend Checker</title>
+     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 </head>
 <body>
 <div>
@@ -16,15 +19,22 @@
         
         <!--<p align="center"><img src="images/urlshortenerlogo.png"></p>-->
         <p align="center">
-            Please enter your short URL below:<br>
-            <input type="text" name="shorturl" size="50">
-        <input type="submit" name="submiturl" id="submiturl" value="Submit">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">   
+            <input type="text" name="shorturl" size="50" class="form-control input-lg" placeholder="Paste in your short URL">
+        </div>
+        <button type="submit" name="submiturl" id="submiturl" class="btn btn-primary btn-lg">Shorten</button>
+        
         </p>
         </form>
-        <!-- END FORM SECTION -->
-        <table border="1" align="center" cellpadding="5">{message}</table>
     </div>
-</div>
-<a href="../">Make New URL</a>
+        <!-- END FORM SECTION -->
+          <div class="col-xs-12">       
+        <table class="table table-striped" border="1" align="center" cellpadding="5">{message}</table>
+    </div><br>
+</div><br><br>
+<p align="center">
+<a href="../"><h3 align="center">Shorten a New URL</a></h3>
 </body>
+</font>
 </html>

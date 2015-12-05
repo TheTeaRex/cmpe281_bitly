@@ -72,7 +72,7 @@ var pageTrend = function(req, res, state){
                 msg = '<p align="center">No Data can be found at the moment.</p>';
             }
             else {
-                msg += '<p align="center">Here are our top ten short URLs!</p>';
+                msg += '<h3><p align="center">Here are our top ten short URLs!</p></h3>';
                 msg += '<tr><th>Long URL</th><th>Short URL</th><th>Total Visit</th></tr>';
                 for (var i=0; i < result.length; i++) {
                     //console.log(result[i]);
