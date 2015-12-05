@@ -26,7 +26,7 @@ var page = function( req, res, state ) {
         var longurl = req.body.longurl;
         var shorturl;
         getShortUrl(longurl, function(shorturl, publicIP){
-        msg = msg + "Your Long URL: " + longurl + "<br>";
+        msg = msg +'Your Long URL: <a href=' + longurl + ' target="_blank">'+ longurl +'</a><br>';
         msg = msg + 'Your Short URL: <a href=' + shorturl + ' target="_blank">'+ shorturl +'</a><br>';
         msg = msg + "Host IP Converting this URL: " + publicIP + "<br>";
         var html_body = "" + body;
