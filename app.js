@@ -69,7 +69,7 @@ var pageTrend = function(req, res, state){
     if (state == "no-url"){
         getTopTen(function(result){
             if (result.length == 0 ){
-                msg = '<p align="center">No Data can be found at the moment.</p>';
+                msg = '<h3><p align="center">No Data can be found at the moment.</p></h3>';
             }
             else {
                 msg += '<h3><p align="center">Here are our top ten short URLs!</p></h3>';
@@ -93,9 +93,9 @@ var pageTrend = function(req, res, state){
         shorturl = S(shorturl).chompLeft(shortDomain).s;
         getShortInfo(shorturl, function(result){
             console.log("URL: " +shorturl);
-            msg += '<p align=center>Short URL: ' + req.body.shorturl + "</p>";
+            msg += '<h3><p align=center>Short URL: ' + req.body.shorturl + "</p></h3>";
             if (result.status == "not found"){
-                msg += '<p align="center"';
+                msg += '<p align="center">';
                 msg += "<h3>We don't have any data on the Short URL you have provided.<br>";
                 msg += "Please make sure you have visit the Short URL yourself or<br>you have input the correct Short URL</p></h3>";
             } else {
