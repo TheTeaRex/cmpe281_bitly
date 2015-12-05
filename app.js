@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use("/images", express.static(__dirname + '/images'));
 
-var endpoint = "http://52.11.127.220";
+var endpoint = "http://team6cp-env.elasticbeanstalk.com";
 var trendendpoint = "https://52.11.102.172";
 var shortDomain = "http://54.193.121.101/";
 
